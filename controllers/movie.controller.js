@@ -29,7 +29,7 @@ exports.createMovie = async(req, res) => {
 
     const movieObject = {
         name: req.body.name,
-        description: req.bdoy.description.Movie,
+        description: req.body.description,
         casts: req.body.casts,
         director: req.body.director,
         trailerUrl: req.body.trailerUrl,
@@ -66,4 +66,15 @@ exports.updateMovie = async (req, res) => {
     var updateMovie = await savedMovie.save();
 
     res.status(200).send(updateMovie);
+}
+
+exports.deleteMovie = async(req, res) => {
+
+    await Movie.deleteOne({
+        _id: req.params.id
+    })
+
+    res.status(200).send({
+        message: "Successfully deleted the movie with id [ " + req.params.id + " ]"
+    })
 }
